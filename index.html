@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My favourite AI lifehacks</title>
+<meta name="description" content="AI for hobbies and free time — a student poster project, LAN6001A English Elementary, IITU 2026.">
+<style>
+  :root {
+    --navy: #0b1f4d; --blue: #1f5eff; --sky: #e8efff; --ink: #13213f; --muted: #4a5878;
+    --mark: #ffe066; --bg: #f3f6fd; --card: #ffffff; --line: #d7e0f5;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Inter, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.5; }
+  a { color: var(--blue); }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 16px; }
+
+  header { background: linear-gradient(135deg, #0b1f4d, #16328a 55%, #1f5eff); color: #fff; padding: 36px 0 40px; }
+  .kicker { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; background: rgba(255,255,255,.16); padding: 6px 12px; border-radius: 99px; }
+  h1 { font-size: clamp(34px, 8vw, 56px); line-height: 1.05; font-weight: 900; margin: 14px 0 10px; }
+  h1 span { color: #8fd9ff; }
+  header p { color: #d6e4ff; font-size: 18px; }
+  header .names { margin-top: 14px; font-size: 14px; color: #c3d4ff; }
+  header .names b { color: #fff; }
+
+  nav { position: sticky; top: 0; z-index: 5; background: rgba(243,246,253,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; gap: 6px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; scrollbar-width: none; }
+  nav a { flex: none; text-decoration: none; font-size: 14px; font-weight: 700; color: var(--navy); background: #fff; border: 1px solid var(--line); padding: 7px 13px; border-radius: 99px; }
+
+  .hello { margin-top: 20px; background: #fff; border-radius: 16px; padding: 18px 20px; box-shadow: 0 6px 20px rgba(11,31,77,.10); font-size: 17px; }
+  .hello b { color: var(--navy); }
+
+  section { padding: 34px 0 6px; scroll-margin-top: 60px; }
+  h2 { font-size: 26px; font-weight: 850; color: var(--navy); display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  h2 .n { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--blue); color: #fff; font-size: 15px; flex: none; }
+  .lead { color: var(--muted); margin: -6px 0 16px; }
+
+  .hack { background: var(--card); border-radius: 16px; padding: 18px; margin-bottom: 14px; border-left: 6px solid var(--c); box-shadow: 0 2px 8px rgba(11,31,77,.06); }
+  .hack .top { display: flex; align-items: center; gap: 12px; }
+  .hack .ic { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; background: color-mix(in srgb, var(--c) 14%, white); flex: none; font-size: 24px; }
+  .hack h3 { font-size: 19px; color: var(--navy); line-height: 1.25; }
+  .hack .tool { font-size: 14px; font-weight: 700; color: var(--c); text-decoration: none; }
+  .hack .tool:hover { text-decoration: underline; }
+  .hack p { margin-top: 10px; color: var(--muted); }
+  .prompt { margin-top: 12px; background: var(--sky); border-radius: 12px; padding: 12px 14px; }
+  .prompt small { display: block; font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--blue); margin-bottom: 4px; }
+  .prompt q { font-style: italic; color: var(--navy); }
+  .prompt q::before, .prompt q::after { content: '"'; }
+  .copy { margin-top: 10px; font: inherit; font-size: 14px; font-weight: 700; color: #fff; background: var(--blue); border: 0; border-radius: 99px; padding: 7px 14px; cursor: pointer; }
+  .copy.done { background: #1d9a55; }
+
+  .panel { background: #fff; border-radius: 16px; padding: 18px 20px; box-shadow: 0 2px 8px rgba(11,31,77,.06); }
+  .q { font-size: 13px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--blue); margin: 16px 0 6px; }
+  .q:first-child { margin-top: 0; }
+  .panel ul.ans { list-style: none; }
+  .panel ul.ans li { padding-left: 18px; position: relative; margin-bottom: 6px; }
+  .panel ul.ans li::before { content: ''; position: absolute; left: 3px; top: 10px; width: 7px; height: 7px; border-radius: 50%; background: var(--blue); }
+  mark { background: var(--mark); color: inherit; padding: 0 3px; border-radius: 3px; font-weight: 700; }
+
+  .vocab { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
+  .word { background: #fff; border-radius: 14px; padding: 14px 16px; border-top: 4px solid var(--mark); box-shadow: 0 2px 8px rgba(11,31,77,.06); }
+  .word h3 { font-size: 18px; color: var(--navy); }
+  .word h3 small { font-weight: 500; color: var(--muted); font-size: 13px; }
+  .word .ru { font-size: 14px; color: var(--blue); font-weight: 700; }
+  .word p { font-size: 15px; color: var(--muted); margin-top: 6px; }
+  .word .ex { font-style: italic; color: var(--ink); }
+
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 8px rgba(11,31,77,.06); }
+  td { padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:last-child td { border-bottom: 0; }
+  td:first-child { font-size: 13px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--blue); background: var(--sky); width: 38%; }
+  b.g { color: #d62f6b; text-decoration: underline; text-underline-offset: 3px; }
+
+  .rules li { margin: 0 0 8px 20px; }
+  .poster img { width: 100%; height: auto; border-radius: 14px; box-shadow: 0 6px 20px rgba(11,31,77,.15); display: block; }
+  .btn { display: inline-block; margin-top: 14px; background: var(--navy); color: #fff; text-decoration: none; font-weight: 700; padding: 11px 18px; border-radius: 99px; }
+
+  footer { margin-top: 40px; padding: 24px 0 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span class="kicker">AI for Hobbies and Free Time</span>
+    <h1>My favourite <span>AI lifehacks</span></h1>
+    <p>How AI makes our free time more creative and fun</p>
+    <p class="names">By <b>Oralbek Alikhan</b> &amp; <b>Kapbasov Beknur</b> · LAN6001A English Elementary · IITU 2026</p>
+  </div>
+</header>
+
+<nav><div class="wrap">
+  <a href="#lifehacks">Lifehacks</a><a href="#answers">Our answers</a><a href="#vocabulary">Vocabulary</a><a href="#grammar">Grammar</a><a href="#rules">AI rules</a><a href="#poster">Poster</a>
+</div></nav>
+
+<main class="wrap">
+  <div class="hello">👋 <b>Thank you for scanning our QR code!</b> Here you can find our five AI lifehacks. Every lifehack has a tool, a link and a prompt. Copy the prompt, open the tool and try it!</div>
+
+  <section id="lifehacks">
+    <h2><span class="n">1</span>Our 5 AI lifehacks</h2>
+
+    <div class="hack" style="--c:#1db954">
+      <div class="top"><div class="ic">🎵</div><div><h3>Music: make a playlist for your mood</h3><a class="tool" href="https://open.spotify.com" target="_blank" rel="noopener">Spotify AI ↗</a></div></div>
+      <p>Open Spotify and find “AI Playlist” or “DJ”. Write what you need.</p>
+      <div class="prompt"><small>Try this prompt</small><q>Make a calm playlist for studying in the evening. No songs with words.</q><br><button class="copy">Copy prompt</button></div>
+    </div>
+
+    <div class="hack" style="--c:#7b3fe4">
+      <div class="top"><div class="ic">📷</div><div><h3>Photos: make your photo brighter</h3><a class="tool" href="https://www.canva.com" target="_blank" rel="noopener">Canva AI ↗</a></div></div>
+      <p>Upload your photo, click “Edit” and use the AI tools to improve the light.</p>
+      <div class="prompt"><small>Try this prompt</small><q>Make this photo brighter and more colourful, but keep it natural.</q><br><button class="copy">Copy prompt</button></div>
+    </div>
+
+    <div class="hack" style="--c:#f08a00">
+      <div class="top"><div class="ic">📍</div><div><h3>Travel: plan a day out in Almaty</h3><a class="tool" href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT ↗</a></div></div>
+      <p>Write your plan in the chat: who, where, how much money and how much time.</p>
+      <div class="prompt"><small>Try this prompt</small><q>Plan a day out in Almaty for two students. We have 10,000 tenge. Give us 4 places, a route and the time for each place.</q><br><button class="copy">Copy prompt</button></div>
+    </div>
+
+    <div class="hack" style="--c:#e0245e">
+      <div class="top"><div class="ic">🎮</div><div><h3>Games: get a hint when you are stuck</h3><a class="tool" href="https://gemini.google.com" target="_blank" rel="noopener">Google Gemini ↗</a></div></div>
+      <p>Ask for one small hint, not the full answer. Then play by yourself!</p>
+      <div class="prompt"><small>Try this prompt</small><q>I am stuck in [game name], level [number]. Give me one small hint, not the answer.</q><br><button class="copy">Copy prompt</button></div>
+    </div>
+
+    <div class="hack" style="--c:#1f5eff">
+      <div class="top"><div class="ic">💡</div><div><h3>Creativity: create a picture for your hobby</h3><a class="tool" href="https://www.bing.com/images/create" target="_blank" rel="noopener">Bing Image Creator ↗</a></div></div>
+      <p>Write a clear creative prompt: who, what, where and what style.</p>
+      <div class="prompt"><small>Try this prompt</small><q>A cute robot playing the guitar in the mountains near Almaty, cartoon style, bright colours.</q><br><button class="copy">Copy prompt</button></div>
+    </div>
+  </section>
+
+  <section id="answers">
+    <h2><span class="n">2</span>AI in our free time</h2>
+    <p class="lead">Our answers to the project questions.</p>
+    <div class="panel">
+      <div class="q">What do we do in our free time?</div>
+      <ul class="ans">
+        <li>After classes, we usually listen to music, take photos and play games.</li>
+        <li>At the weekend, we like <mark>exploring</mark> new places in Almaty.</li>
+      </ul>
+      <div class="q">How does AI help students?</div>
+      <ul class="ans">
+        <li>AI helps students find new hobbies and save time.</li>
+        <li>There are many AI tools for music, photos, games and travel.</li>
+      </ul>
+      <div class="q">Which AI tools do we use?</div>
+      <ul class="ans">
+        <li>Spotify makes a <mark>personalized</mark> <mark>playlist</mark> for every mood.</li>
+        <li>An AI <mark>photo editor</mark> in Canva makes our photos brighter.</li>
+        <li>ChatGPT is a good <mark>travel planner</mark>: it shows us places to visit.</li>
+        <li>Google Gemini can suggest a <mark>game strategy</mark> when we are stuck.</li>
+        <li>A clear <mark>creative prompt</mark> helps us <mark>generate</mark> pictures in Bing Image Creator.</li>
+      </ul>
+      <div class="q">What are the advantages of AI?</div>
+      <ul class="ans">
+        <li>AI <mark>recommendations</mark> are more personal than general suggestions.</li>
+        <li>A <mark>voice assistant</mark> like Siri plays music and answers questions very fast.</li>
+      </ul>
+      <div class="q">Which AI apps are the most useful for students?</div>
+      <ul class="ans">
+        <li>For students, ChatGPT and Canva AI are the most useful apps.</li>
+        <li>We enjoy using AI, but we always think for ourselves.</li>
+        <li>For us, AI is a useful helper that makes free time more fun.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="vocabulary">
+    <h2><span class="n">3</span>Our vocabulary</h2>
+    <p class="lead">10 new words from our project glossary.</p>
+    <div class="vocab">
+      <div class="word"><h3>recommendation <small>n</small></h3><div class="ru">рекомендация</div><p>a suggestion based on your interests or preferences</p><p class="ex">AI gives me music recommendations based on what I like.</p></div>
+      <div class="word"><h3>playlist <small>n</small></h3><div class="ru">плейлист</div><p>a collection of songs chosen to play together</p><p class="ex">AI creates a playlist for my workout or free time.</p></div>
+      <div class="word"><h3>generate <small>v</small></h3><div class="ru">создавать, генерировать</div><p>to create text, images, music or ideas using AI</p><p class="ex">I use AI to generate ideas for a creative project.</p></div>
+      <div class="word"><h3>photo editor <small>n</small></h3><div class="ru">фоторедактор</div><p>a tool used to improve or change photos</p><p class="ex">An AI photo editor can improve lighting in my pictures.</p></div>
+      <div class="word"><h3>travel planner <small>n</small></h3><div class="ru">планировщик путешествий</div><p>a tool that helps organize a trip or day out</p><p class="ex">An AI travel planner helps me choose places to visit.</p></div>
+      <div class="word"><h3>game strategy <small>n</small></h3><div class="ru">игровая стратегия</div><p>a plan for playing a game more effectively</p><p class="ex">AI can suggest a game strategy when I am stuck.</p></div>
+      <div class="word"><h3>personalize <small>v</small></h3><div class="ru">персонализировать</div><p>to change something to match a person’s interests</p><p class="ex">AI can personalize my music and video suggestions.</p></div>
+      <div class="word"><h3>creative prompt <small>n</small></h3><div class="ru">творческий запрос</div><p>a short instruction used to get an AI-generated result</p><p class="ex">I write a creative prompt to make an interesting image.</p></div>
+      <div class="word"><h3>voice assistant <small>n</small></h3><div class="ru">голосовой помощник</div><p>an AI tool that responds to spoken questions or commands</p><p class="ex">A voice assistant can play music or answer quick questions.</p></div>
+      <div class="word"><h3>explore <small>v</small></h3><div class="ru">исследовать, изучать</div><p>to discover and learn about new things or places</p><p class="ex">AI helps me explore new hobbies, music and travel ideas.</p></div>
+    </div>
+  </section>
+
+  <section id="grammar">
+    <h2><span class="n">4</span>Grammar we used</h2>
+    <table>
+      <tr><td>Present Simple</td><td>AI <b class="g">helps</b> people find new hobbies.</td></tr>
+      <tr><td>There is / There are</td><td><b class="g">There are</b> many AI tools for music, photos and games.</td></tr>
+      <tr><td>Comparative</td><td>AI recommendations are <b class="g">more personal than</b> general ones.</td></tr>
+      <tr><td>Articles a / an / the</td><td><b class="g">An</b> AI photo editor is <b class="g">a</b> useful tool.</td></tr>
+      <tr><td>Gerund vs Infinitive</td><td>We like <b class="g">exploring</b> new places. We want <b class="g">to try</b> AI music.</td></tr>
+    </table>
+  </section>
+
+  <section id="rules">
+    <h2><span class="n">5</span>Our rules for using AI</h2>
+    <div class="panel"><ul class="rules">
+      <li>Check the facts. AI is not always right.</li>
+      <li>Don’t share your personal information (passwords, address, phone number).</li>
+      <li>Use AI for ideas and help, but make your own decisions.</li>
+    </ul></div>
+  </section>
+
+  <section id="poster" class="poster">
+    <h2><span class="n">6</span>Our poster</h2>
+    <a href="poster.jpg" target="_blank" rel="noopener"><img src="poster.jpg" alt="Our A3 poster: My favourite AI lifehacks" loading="lazy" width="1100" height="1556"></a>
+    <a class="btn" href="Poster_AI_Lifehacks_A3.pdf" target="_blank" rel="noopener">Download the poster (PDF, A3)</a>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  Project “My favourite AI lifehacks” · Category: AI for hobbies and free time<br>
+  Oralbek Alikhan &amp; Kapbasov Beknur · LAN6001A Foreign Language / English Elementary · International Information Technology University, 2026
+</div></footer>
+
+<script>
+  document.querySelectorAll('.copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = btn.parentElement.querySelector('q').textContent;
+      function ok() { btn.textContent = 'Copied!'; btn.classList.add('done'); setTimeout(function(){ btn.textContent = 'Copy prompt'; btn.classList.remove('done'); }, 1800); }
+      if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(text).then(ok, function(){}); }
+      else { var t = document.createElement('textarea'); t.value = text; document.body.appendChild(t); t.select(); try { document.execCommand('copy'); ok(); } catch (e) {} t.remove(); }
+    });
+  });
+</script>
+</body>
+</html>
